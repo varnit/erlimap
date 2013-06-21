@@ -44,31 +44,31 @@ connect_ssl(Host, Port) ->
   gen_fsm:start_link(?MODULE, {ssl, Host, Port}, []).
 
 login(Conn, User, Pass) ->
-  gen_fsm:sync_send_event(Conn, {command, login, {User, Pass}}).
+  gen_fsm:sync_send_event(Conn, {command, login, {User, Pass}}, infinity).
 
 logout(Conn) ->
-  gen_fsm:sync_send_event(Conn, {command, logout, {}}).
+  gen_fsm:sync_send_event(Conn, {command, logout, {}}, infinity).
 
 noop(Conn) ->
-  gen_fsm:sync_send_event(Conn, {command, noop, {}}).
+  gen_fsm:sync_send_event(Conn, {command, noop, {}}, infinity).
 
 disconnect(Conn) ->
   gen_fsm:sync_send_all_state_event(Conn, {command, disconnect, {}}).
 
 select(Conn, Mailbox) ->
-  gen_fsm:sync_send_event(Conn, {command, select, Mailbox}).
+  gen_fsm:sync_send_event(Conn, {command, select, Mailbox}, infinity).
 
 examine(Conn, Mailbox) ->
-  gen_fsm:sync_send_event(Conn, {command, examine, Mailbox}).
+  gen_fsm:sync_send_event(Conn, {command, examine, Mailbox}, infinity).
 
 search(Conn, SearchKeys) ->
-  gen_fsm:sync_send_event(Conn, {command, search, SearchKeys}).
+  gen_fsm:sync_send_event(Conn, {command, search, SearchKeys}, infinity).
 
 fetch(Conn, SequenceSet, MsgDataItems) ->
-  gen_fsm:sync_send_event(Conn, {command, fetch, [SequenceSet, MsgDataItems]}).
+  gen_fsm:sync_send_event(Conn, {command, fetch, [SequenceSet, MsgDataItems]}, infinity).
 
 store(Conn, SequenceSet, Flags, Action) ->
-  gen_fsm:sync_send_event(Conn, {command, store, [SequenceSet, Flags, Action]}).
+  gen_fsm:sync_send_event(Conn, {command, store, [SequenceSet, Flags, Action]}, infinity).
   
 %%%-------------------
 %%% Callback functions
