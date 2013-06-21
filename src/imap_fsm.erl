@@ -207,7 +207,8 @@ handle_command(Command, From, StateName, StateData) ->
     {ok, Tag} ->
       NewStateData = StateData#state_data{commands_pending_response =
         dict:store(Tag, {Command, From},
-                   StateData#state_data.commands_pending_response)},
+                   StateData#state_data.commands_pending_response),
+                                          untagged_responses_received=[]},
       {next_state, StateName, NewStateData};
     {error, Reason} ->
       {stop, Reason, StateData}
